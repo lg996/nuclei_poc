@@ -6,7 +6,7 @@ info:
   description: A simple workflow that runs all rabbitmq related nuclei templates on a given target.
 
 workflows:
-  - template: http/exposed-panels/rabbitmq-dashboard.yaml
+  - template: exposed-panels/rabbitmq-dashboard.yaml
 
     subtemplates:
-      - template: http/default-logins/rabbitmq/
+      - template: default-logins/rabbitmq/
