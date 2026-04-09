@@ -9,7 +9,7 @@ info:
   reference:
     - https://github.com/apache/streampark
   classification:
-    cpe: cpe:2.3:a:apache:streampark:*:*:*:*:*:*:*:*
+    cpe: cpe:2.3:a:apache:streampark:*:*:*:*:*:*:*
   metadata:
     max-request: 1
     vendor: apache
@@ -21,7 +21,6 @@ http:
   - method: GET
     path:
       - "{{BaseURL}}/"
-
     matchers-condition: and
     matchers:
       - type: word
@@ -32,4 +31,4 @@ http:
       - type: status
         status:
           - 200
-# digest: 4b0a00483046022100e7bbcea8f0a5e0608f6f426374021ccbfb87aacf04a0b2481e5b9bb6a70ec5b7022100d9194476ab76d0278c5bcd463d9d9fca4df91a074a1e258ee5f86fba2231a15c:922c64590222798bb761d5b6d8e72950
+# digest: 4a0a004730450221008ba64c9f198e9917c66991e853cc725bf3fcbac8dc60aa2f1d9d5db92918b38f022049aae7987066fdc7150883a01437a0eb835ac6386d0ae9900aebda6eead70a48:922c64590222798bb761d5b6d8e72950
