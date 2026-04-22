@@ -13,10 +13,8 @@ info:
     cvss-score: 10.0
     cwe-id: CWE-77
   tags: rce,firewall,intrusive
-  metadata:
-    max-request: 2
 
-http:
+requests:
   - raw:
       - |
         POST /directdata/direct/router HTTP/1.1

@@ -12,7 +12,7 @@ info:
     verified: true
     max-request: 1
     shodan-query: title:"Akuiteo"
-  tags: panel,akuiteo,login,detect
+  tags: panel,akuiteo,login,detect,discovery
 
 http:
   - method: GET
@@ -37,4 +37,4 @@ http:
         group: 1
         regex:
           - '(?i)x-akuiteo-masterhash:\s+([0-9a-f]+)'
-# digest: 4a0a004730450221008886741c0a77caf5f5afa2c1afb4e26c61baf69bdde006059ef8df709208dd0c022007d072b9126de5e9fdc62bb71d379597b3c210857013ee78cb18201b5978f764:922c64590222798bb761d5b6d8e72950
+# digest: 4a0a00473045022100bce69f44fbdfc1f11918a9e1e71c29203a6b239a1325dc7027cc5d607eb692c702202386faa4734472fb112a60268d3439ded7fe04b345f631b58d41a0168e26a975:922c64590222798bb761d5b6d8e72950
