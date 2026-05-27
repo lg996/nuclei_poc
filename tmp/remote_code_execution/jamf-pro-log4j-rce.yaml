@@ -16,12 +16,12 @@ info:
     cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H
     cvss-score: 10
     cve-id: CVE-2021-44228
-    cwe-id: CWE-77,CWE-502
+    cwe-id: CWE-77
   metadata:
     verified: true
     max-request: 1
     shodan-query: title:"Jamf Pro"
-  tags: cve,cve2021,rce,jndi,log4j,jamf,oast,kev,vuln
+  tags: cve,cve2021,rce,jndi,log4j,jamf,oast,kev
 variables:
   rand1: '{{rand_int(111, 999)}}'
   rand2: '{{rand_int(111, 999)}}'
@@ -70,4 +70,4 @@ http:
         group: 1
         regex:
           - '\d{6}\.([a-zA-Z0-9\.\-]+)\.([a-z0-9]+)\.([a-z0-9]+)\.([a-z0-9]+)\.\w+'
-# digest: 490a00463044022070c6c2400a4da8b15295aaceb3bfb6f7bfdf86208cd581d1af1c7b3ce44afdf9022041ef70e34d1152df44afc80b8a0971f67fb72fafe14f58543b65efbde935dc64:922c64590222798bb761d5b6d8e72950
+# digest: 4a0a00473045022004d91776410a4a549cc29c00819276c024ee928a18ad472dc4bd1977f6b47ff6022100ac59abe7c0929c14909a0c954008dd8f5630a76a70f5aae1782b5529f185c4eb:922c64590222798bb761d5b6d8e72950
