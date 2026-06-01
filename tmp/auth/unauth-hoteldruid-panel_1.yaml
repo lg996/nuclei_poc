@@ -1,38 +1,32 @@
-id: unauth-hoteldruid-panel
-
+id: unauth-hoteldruid-panel 1
 info:
-  name: Hoteldruid Management Panel Access
   author: princechaddha
+  name: Unauthenticated Hoteldruid Panel
+  reference: https://www.hoteldruid.com/
   severity: high
-  description: A vulnerability in Hoteldruid Panel allows remote unauthenticated users access to the management portal without authentication.
-  reference:
-    - https://github.com/nomi-sec/PoC-in-GitHub/blob/master/2021/CVE-2021-42949.json
-    - https://www.hoteldruid.com/
-  classification:
-    cvss-metrics: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:L/A:L
-    cvss-score: 8.3
-    cwe-id: CWE-522
-  metadata:
-    max-request: 2
   tags: hoteldruid,panel,unauth
+requests:
+- attack: sniper
+  matchers:
+  - status:
+    - 200
+    type: status
+  - condition: and
+    part: body
+    type: word
+    words:
+    - <title> HotelDruid </title>
+    - <b>INSERT:</b>
+    - <b>TABLES:</b>
+  matchers-condition: and
+  payloads:
+    Subdomains: /home/mahmoud/Wordlist/AllSubdomains.txt
+  raw:
+  - 'GET /hoteldruid/inizio.php HTTP/1.1
 
-http:
-  - method: GET
-    path:
-      - "{{BaseURL}}/hoteldruid/inizio.php"
-      - "{{BaseURL}}/inizio.php"
+    Host: {{Subdomains}}
 
-    matchers-condition: and
-    matchers:
-      - type: status
-        status:
-          - 200
+    User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101 Firefox/68.0
 
-      - type: word
-        part: body
-        words:
-          - "<title> HotelDruid </title>"
-          - "<b>INSERT:</b>"
-          - "<b>TABLES:</b>"
-        condition: and
-# digest: 4b0a00483046022100bbeec270cf908256fb246975163ebb46140a9f768380f79bfbcf8c9fecec7175022100be3fd2fe612ea658ee6b5878a85fd9e5d62119b16cc2f68afccc6a473fdd5f61:922c64590222798bb761d5b6d8e72950
+    '
+  threads: 100

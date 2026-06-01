@@ -1,47 +1,32 @@
-id: manageengine-adaudit
-
+id: manageengine-adaudit 1
 info:
-  name: ZOHO ManageEngine ADAudit/ADManager Panel - Detect
-  author: dhiyaneshDK,PR3R00T,idealphase
+  author: dhiyaneshDK,PR3R00T
+  name: ZOHO ManageEngine ADAudit/ADManager Panel
+  reference: https://www.shodan.io/search?query=http.title%3A%22ManageEngine+-+ADManager+Plus%22
   severity: info
-  description: |
-    ZOHO ManageEngine ADAudit/ADManager panel was detected.
-  reference:
-    - https://www.manageengine.com/products/active-directory-audit/
-    - https://www.manageengine.com/products/ad-manager/
-  classification:
-    cvss-metrics: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:N
-    cwe-id: CWE-200
-    cpe: cpe:2.3:a:zohocorp:manageengine_adaudit_plus:*:*:*:*:*:*:*:*
-  metadata:
-    verified: true
-    max-request: 2
-    vendor: zohocorp
-    product: manageengine_adaudit_plus
-    shodan-query:
-      - http.title:"ADAudit Plus" || http.title:"ManageEngine - ADManager Plus"
-      - http.title:"adaudit plus" || http.title:"manageengine - admanager plus"
-    fofa-query: title="adaudit plus" || http.title:"manageengine - admanager plus"
-    google-query: intitle:"adaudit plus" || http.title:"manageengine - admanager plus"
-  tags: panel,zoho,manageengine,zohocorp
+  tags: panel,zoho,manageengine
+requests:
+- attack: sniper
+  matchers:
+  - type: word
+    words:
+    - <title>ManageEngine - ADManager Plus</title>
+  - status:
+    - 200
+    type: status
+  matchers-condition: and
+  payloads:
+    Subdomains: /home/mahmoud/Wordlist/AllSubdomains.txt
+  raw:
+  - 'GET /authorization.do HTTP/1.1
 
-http:
-  - method: GET
-    path:
-      - '{{BaseURL}}'
-      - "{{BaseURL}}/authorization.do"
+    Host: {{Subdomains}}
 
-    stop-at-first-match: true
+    User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101 Firefox/68.0
 
-    matchers-condition: and
-    matchers:
-      - type: word
-        words:
-          - 'ManageEngine - ADManager Plus'
-          - 'ADAudit Plus'
-        condition: or
+    Accept-Encoding: gzip, deflate
 
-      - type: status
-        status:
-          - 200
-# digest: 4a0a004730450221009e85ddd710b13b6e3a35503b6712a3424c62d706ea5a2fd7bfa1a85b9a1e66bb02207dd5eddc03264337dbbbcbf40ace3ca64b93fcfed561d3198f83a49a73ec1f31:922c64590222798bb761d5b6d8e72950
+    Accept: */*
+
+    '
+  threads: 100
