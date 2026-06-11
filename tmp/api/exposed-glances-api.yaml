@@ -1,21 +1,25 @@
 id: exposed-glances-api
-
 info:
   name: Exposed Glances API
   author: princechaddha
   severity: low
   description: Glances is a cross-platform system monitoring tool written in Python.
-  reference:
-    - https://nicolargo.github.io/glances/
-  metadata:
-    max-request: 1
-  tags: glances,exposure,vuln
+  reference: https://nicolargo.github.io/glances/
+  tags: glances,exposure
 
-http:
-  - method: GET
-    path:
-      - "{{BaseURL}}"
+requests:
+  - payloads:
+      Subdomains: /home/mahmoud/Wordlist/AllSubdomains.txt
+    attack: sniper
+    threads: 100
 
+    raw:
+      - |
+        GET / HTTP/1.1
+        Host: {{Subdomains}}
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101 Firefox/68.0
+        Accept-Encoding: gzip, deflate
+        Accept: */*
     matchers-condition: and
     matchers:
       - type: status
@@ -29,4 +33,3 @@ http:
           - '<glances></glances>'
         part: body
         condition: and
-# digest: 4a0a00473045022100d6681af2286ef5fe32abd626a03f1e3be50c859a2105b1ab983fdfff617f8dae02201476f422094f20688d9f1e7378449e6ac61863f50db883d17cfda605eedb6f81:922c64590222798bb761d5b6d8e72950

