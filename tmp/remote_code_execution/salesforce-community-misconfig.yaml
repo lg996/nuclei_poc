@@ -12,7 +12,7 @@ info:
   metadata:
     verified: true
     publicwww-query: sfsites
-  tags: aura,unauth,salesforce,exposure,misconfig
+  tags: aura,unauth,salesforce,exposure,misconfig,vuln
 
 variables:
   actions: '{"actions":[{"id":"{{randstr}}","descriptor":"serviceComponent://ui.force.components.controllers.lists.selectableListDataProvider.SelectableListDataProviderController/ACTION$getItems","callingDescriptor":"UNKNOWN","params":{"entityNameOrId":"ContentDocument","layoutType":"FULL","pageSize":20,"currentPage":0,"useTimeout":false,"getCount":true,"enableRowActions":false}}]}'
@@ -21,9 +21,9 @@ http:
   - method: GET
     path:
       - "{{RootURL}}/s/"
+
     redirects: true
     max-redirects: 1
-
     matchers:
       - type: status
         status:
@@ -42,14 +42,15 @@ http:
   - method: POST
     path:
       - "{{RootURL}}/s/sfsites/aura"
+
     headers:
       Content-Type: application/x-www-form-urlencoded
+
     body: |
       message={{url_encode(actions)}}&aura.context={{aura_context}}&aura.token=null
-
     matchers:
       - type: word
         part: body
         words:
           - "recordTypeInfo"
-# digest: 4b0a004830460221009641e3e92aae972ec7c5da824247d7510d50fc97d5680240d9746684523ccb9c022100aeb37293cf346248474cba1f1d3b4dd4082b953825f047cf74d3a8000f6f2dbc:922c64590222798bb761d5b6d8e72950
+

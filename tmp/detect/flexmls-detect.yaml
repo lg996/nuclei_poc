@@ -8,7 +8,7 @@ info:
     verified: true
     max-request: 1
     shodan-query: html:"/wp-content/plugins/flexmls-idx"
-  tags: tech,detect,flexmls,idx
+  tags: tech,detect,flexmls,idx,discovery
 
 http:
   - method: GET
@@ -45,4 +45,4 @@ http:
         part: body
         regex:
           - '(?i)Stable.tag:\s?([\w.]+)'
-# digest: 4b0a00483046022100f62d886ff5cfd61496bd5f760f16e1630cd2386f06a3e0f32b8caece40bd1cef022100b283fef5deb07686f1962cdbf57bb03f3cc4b2a9a38f3673ab76833b8b179247:922c64590222798bb761d5b6d8e72950
+

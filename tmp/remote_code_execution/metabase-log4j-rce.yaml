@@ -15,10 +15,11 @@ info:
     cve-id: CVE-2021-44228
     cwe-id: CWE-77
   metadata:
+    runzero-match: any(each(service["html.titles"]), {# matches "Metabase"})
     verified: true
     max-request: 1
     shodan-query: title:"Metabase"
-  tags: cve,cve2021,rce,jndi,log4j,metabase,kev,oast
+  tags: cve,cve2021,rce,jndi,log4j,metabase,kev,oast,vuln
 variables:
   rand1: '{{rand_int(111, 999)}}'
   rand2: '{{rand_int(111, 999)}}'
@@ -61,4 +62,4 @@ http:
         group: 1
         regex:
           - '\d{6}\.([a-zA-Z0-9\.\-]+)\.([a-z0-9]+)\.([a-z0-9]+)\.([a-z0-9]+)\.\w+'
-# digest: 490a004630440220041b012015383c1bb3b9a2b32d2e7ddce0ede8cb033070984d414b53de4a284e02206dafe8ee8a06747337d354f2aa130dcd6dac61b8d4535542a5f907de11afe7ba:922c64590222798bb761d5b6d8e72950
+
