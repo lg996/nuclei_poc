@@ -13,12 +13,12 @@ info:
     cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H
     cvss-score: 10
     cve-id: CVE-2021-44228
-    cwe-id: CWE-77
+    cwe-id: CWE-77,CWE-502
   metadata:
     verified: true
     max-request: 1
     shodan-query: title:"VMware HCX"
-  tags: cve,cve2021,rce,jndi,log4j,vmware,kev,oast
+  tags: cve,cve2021,rce,jndi,log4j,vmware,kev,oast,vuln
 variables:
   rand1: '{{rand_int(111, 999)}}'
   rand2: '{{rand_int(111, 999)}}'
@@ -67,4 +67,4 @@ http:
         group: 1
         regex:
           - '\d{6}\.([a-zA-Z0-9\.\-]+)\.([a-z0-9]+)\.([a-z0-9]+)\.([a-z0-9]+)\.\w+'
-# digest: 4a0a004730450220563452a174f3f9d64ab9004feb8fc0791d51158fcf03d54e57fbe0f7aba7d5cc022100e0d3230a09b374663b851ad25ae11cf3ea5f887941fb3e9e90e8c06a81aaa5bb:922c64590222798bb761d5b6d8e72950
+# digest: 490a0046304402204b3aa645addfb74b83408148c5a3ce8fc03bac519bee4356c39e039088371c2b022018eabde1fefad9ecf52232a50352d260338ac6746c61562798209ff1f78b8cd9:922c64590222798bb761d5b6d8e72950
