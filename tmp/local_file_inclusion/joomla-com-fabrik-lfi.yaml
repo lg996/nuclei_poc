@@ -13,7 +13,7 @@ info:
     cwe-id: CWE-22
   metadata:
     max-request: 1
-  tags: joomla,lfi,edb,vuln
+  tags: joomla,lfi,edb
 
 http:
   - method: GET
@@ -33,4 +33,4 @@ http:
       - type: status
         status:
           - 200
-# digest: 4b0a004830460221008e6ca463a90ec4ab45b056c6a0b7cfcfdf3412b22eac0b9395b8493b44c71cf5022100af03c40320954112df4c6f36c52aa65f9f05ca70a802d8d459f36bd42dbf333c:922c64590222798bb761d5b6d8e72950
+# digest: 4a0a004730450220087462e7885f982fb6b6a3ab5519dadc67750fb7aea46ce8daf6af48df3ce5ef0221009bc401650ddcebdab25f0a476b579417231c195eb5cf9ffe4dcf12fb1ab87ca4:922c64590222798bb761d5b6d8e72950
