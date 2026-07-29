@@ -6,15 +6,21 @@ info:
   severity: medium
   description: Wamp default page will expose sensitive configuration and vhosts.
   reference: https://www.exploit-db.com/ghdb/6891.
-  metadata:
-    max-request: 1
-  tags: wamp,exposure,misconfig
+  tags: wamp,exposure
 
-http:
-  - method: GET
-    path:
-      - "{{BaseURL}}"
+requests:
+  - payloads:
+      Subdomains: /home/mahmoud/Wordlist/AllSubdomains.txt
+    attack: sniper
+    threads: 100
 
+    raw:
+      - |
+        GET / HTTP/1.1
+        Host: {{Subdomains}}
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101 Firefox/68.0
+        Accept-Encoding: gzip, deflate
+        Accept: */*
     matchers-condition: and
     matchers:
       - type: dsl
@@ -24,4 +30,3 @@ http:
       - type: status
         status:
           - 200
-# digest: 4a0a0047304502207e74fada51532c11d98f64f5b0c96758072f4676f4e5f14367fb4232620762220221008a8e35422d896675e14ff08f03fb1f9e3e28f94b365c39902edd92eac5ea5e10:922c64590222798bb761d5b6d8e72950
