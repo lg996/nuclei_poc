@@ -8,26 +8,31 @@ info:
   tags: sqli
 
 requests:
-  - payloads:
-      Subdomains: /home/mahmoud/Wordlist/AllSubdomains.txt
-    attack: sniper
-    threads: 100
+  - method: GET
+    path:
+      - "{{BaseURL}}/'"
 
-    raw:
-      - |
-        GET / HTTP/1.1
-        Host: {{Subdomains}}
-        User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101 Firefox/68.0
-        Accept-Encoding: gzip, deflate
-        Accept: */*
     matchers-condition: and
     matchers:
+      - type: status
+        status:
+          - 200
+          - 500
       - type: word
         words:
           - "Adminer"
         # False Positive
         part: body
         negative: true
+      - type: word
+        words:
+          - "<!DOCTYPE html>"
+          - "This page couldn't be found"
+          - "Page not found"
+          - "404 Not Found"
+        part: body
+        negative: true
+        condition: or
 
       - type: regex
         regex:
