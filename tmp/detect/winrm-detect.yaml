@@ -2,26 +2,36 @@ id: winrm-detect
 
 info:
   name: Windows Remote Management - Detection
-  author: zan8in
+  author: pussycat0x
   severity: info
-  verified: true
-  description: |-
-    WinRM 是微软为实现 WS-Management 协议而开发的服务。简单说，它是Windows系统的 “官方远程命令行管理协议”。
-    默认端口： HTTP 5985 / HTTPS 5986
-    核心功能： 允许管理员从远程计算机使用命令行（主要通过 PowerShell Remoting）执行管理任务。它是 Invoke-Command、Enter-PSSession 等PowerShell命令的底层传输机制。
-    类比： 你可以把它看作Windows世界的 “SSH”，但基于HTTP/S协议，更侧重于与PowerShell的深度集成。
-    fofa: "WinRM"
-  tags: network,winrm,fingerprint
-  created: 2026/01/09
+  description: |
+    Detects Windows Remote Management (WinRM) by checking HTTP response headers on ports 5985 (HTTP) and 5986 (HTTPS).
+  metadata:
+    max-request: 1
+    verified: true
+    shodan-query: product:"WinRM"
+  tags: network,winrm,windows,discovery
 
-rules:
-  r0:
-    request:
-      method: POST
-      path: /wsman
-    expression: |
-      response.status == 401 &&
-      response.raw_header.ibcontains(b'Microsoft-HTTPAPI') &&
-      (response.headers['www-authenticate'].icontains('NTLM') ||
-      response.headers['www-authenticate'].icontains('Negotiate'))
-expression: r0()
+http:
+  - method: POST
+    path:
+      - "{{BaseURL}}/wsman"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 401
+
+      - type: regex
+        part: header
+        regex:
+          - 'Microsoft-HTTPAPI\/[0-9\.]+'
+
+      - type: word
+        part: header
+        words:
+          - "Www-Authenticate: NTLM"
+          - "Www-Authenticate: Negotiate"
+        condition: or
+# digest: 4a0a00473045022056692946082ce6e6d1e838106b03143dbb822f31b3c2114cc6a06775093abc140221008ac3d359d78e8e1c60dff6650ab7cbbb61ce372e63d8c11bd737fb4faf2d36d1:922c64590222798bb761d5b6d8e72950
