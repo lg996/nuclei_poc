@@ -12,7 +12,7 @@ info:
     cwe-id: CWE-200
   metadata:
     max-request: 1
-  tags: network,jabber,xmpp,messaging,detect
+  tags: network,jabber,xmpp,messaging,detect,detection,tcp,discovery
 
 tcp:
   - inputs:
@@ -28,4 +28,4 @@ tcp:
           - "stream:stream xmlns:stream"
           - "stream:error xmlns:stream"
         condition: or
-# digest: 490a0046304402206512e881fe1cf26bd5bf616d72ae7223ccfc93cc51967fc2559339e1ccd541f502207e172bf475353930b94507558c10ff56ec3b63d7650ea00105f6468da07f1071:922c64590222798bb761d5b6d8e72950
+# digest: 490a004630440220533872a30494fb55c3138875fc47c32c9b0221ab7cee9d40f397cad338e01322022062166246660eaad0a55f094fd7d3ca269d8a826ff57b72db434b73d5d4c91341:922c64590222798bb761d5b6d8e72950

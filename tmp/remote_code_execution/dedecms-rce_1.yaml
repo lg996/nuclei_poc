@@ -9,11 +9,16 @@ info:
   reference:
     - https://srcincite.io/blog/2021/09/30/chasing-a-dream-pwning-the-biggest-cms-in-china.html
     - https://sectime.top/post/1d114771.html
+  classification:
+    cpe: cpe:2.3:a:dedecms:dedecms:*:*:*:*:*:*:*:*
+    cwe-id: CWE-78,CWE-94
   metadata:
     verified: true
     max-request: 1
     fofa-query: app="DedeCMS"
-  tags: dedecms,cms,rce
+    product: dedecms
+    vendor: dedecms
+  tags: dedecms,cms,rce,vuln
 
 http:
   - raw:
@@ -31,5 +36,4 @@ http:
       - type: status
         status:
           - 200
-
-# digest: 4a0a00473045022100df434f263258323e2f8e1ea3f07d374bd59d060ca63eee3faf821ea0c8cc332902203a670f95b44fbdb4ad7126682ff6f55ef7325a18d66cf040e525f67e3a6f7f29:922c64590222798bb761d5b6d8e72950
+# digest: 4b0a00483046022100bca9b532419c51bd63f7ce3b51aee2dc4c29aa9582e04a2497bb35c883d58480022100a73b56788538a957f243d6dff084c3c72e38a615b34f033b7704a619eac4495c:922c64590222798bb761d5b6d8e72950
